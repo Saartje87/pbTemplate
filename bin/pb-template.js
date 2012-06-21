@@ -61,6 +61,12 @@ Templating language
 		 * @param boolean do not remove line endings, tabs, extra spaces(2+), html comment
 		 */
 		construct: function ( template, plainText ) {
+			
+			if( template instanceof PB.Template ) {
+				
+				template = template.template
+				plainText = true;
+			}
 
 			this.template = plainText
 				? template
@@ -140,7 +146,7 @@ Templating language
 				method = arguments[3],
 				args = arguments[4];
 
-			if( method && Template.Methods[method] ) {
+			if( method && PB.Template.Methods[method] ) {
 
 				if( args ) {
 
@@ -151,7 +157,7 @@ Templating language
 					args = [value];
 				}
 
-				value = Template.Methods[method].apply(null, args);
+				value = PB.Template.Methods[method].apply(null, args);
 			}
 
 			return value;
@@ -209,12 +215,12 @@ Templating language
 		},
 
 		replace: function ( element, data ) {
-
+			
 			var fragment = doc.createDocumentFragment(),
 				div = doc.createElement('div'),
 				child,
 				childs;
-
+				
 			element = PB(element).node;
 
 			div.innerHTML = this.parse( data );
