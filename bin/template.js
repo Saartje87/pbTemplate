@@ -172,7 +172,7 @@ Templating language
 
 			ns.forEach(function ( ns ){
 				
-				context = typeof context[ns] !== 'undefined' ? context[ns] : context;
+				context = context && typeof context[ns] !== 'undefined' ? context[ns] : context;
 			});
 
 			return context;
