@@ -191,8 +191,14 @@ Templating language
 				
 			element = PB(element).node;
 
-			div.innerHTML = this.parse( data );
-			
+            if(div.nodeName == "TABLE" && PB.browser.isIE){
+                var tbody = document.createElement("tbody");
+                tbody.innerHTML = this.parse( data );
+                div.appendChild(tbody);
+            } else {
+                div.innerHTML = this.parse( data );
+            }
+
 			// Tmp hack, would otherwise return tbody instead of tr..
 			if( parentNodeType === 'table' ) {
 				
